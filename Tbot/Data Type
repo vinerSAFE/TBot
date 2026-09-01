@@ -1,0 +1,17 @@
+KeyB.Press.84
+KeyB.Press.38
+KeyB.Press.38
+KeyB.Press.10
+Delay.BIG
+
+KeyB.Press.84
+KeyB.Press.38
+KeyB.Press.38
+KeyB.Press.10
+Delay.BIG
+
+Mouse.Move.750,330
+KeyB.Hold.16
+Mouse.Press.RClick
+KeyB.Relese.16
+KeyB.Press.69
