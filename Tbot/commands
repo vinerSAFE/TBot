@@ -1,0 +1,13 @@
+KeyB.Press.84
+KeyB.Type.all
+KeyB.Press.10
+KeyB.Press.84
+KeyB.Type./shop blocks 2
+KeyB.Press.10
+Delay.BIG
+
+Mouse.Move.750,330
+KeyB.Hold.16
+Mouse.Press.RClick
+KeyB.Relese.16
+KeyB.Press.69
