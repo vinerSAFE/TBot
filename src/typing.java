@@ -7,20 +7,29 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class typing implements NativeKeyListener, NativeMouseListener {
     boolean togg=true;
     boolean triger=false;
-    static int big_delay = 750;
-    static int small_delay=66;
+    static int big_delay = 500;
+    static int small_delay= 72;
     static boolean loop =false;
     Robot robot;
     static JLabel togglelable = new JLabel("(Midel Click) to toggle: off", SwingConstants.CENTER);
     
         public typing() throws Exception {
             robot = new Robot();
+        }
+
+        public static List<Integer> translate_list(String a){
+            List<Integer> clist = new ArrayList<>();
+            for (char i:a.toCharArray()){
+                int keyCode = KeyEvent.getExtendedKeyCodeForChar(i);
+                if (keyCode != KeyEvent.VK_UNDEFINED) clist.add(keyCode);
+            }
+            return clist;
         }
     
         @Override
@@ -111,8 +120,8 @@ public class typing implements NativeKeyListener, NativeMouseListener {
         frame.setLayout(new BorderLayout());
         frame.add(centerPanel, BorderLayout.NORTH);
         frame.add(inputPanel);
-        inputField.setText("3");
-        inputField2.setText("3");
+        inputField.setText("2");
+        inputField2.setText("6");
 
         // --- Button action ---
         applyButton.addActionListener(new ActionListener() {
@@ -124,7 +133,7 @@ public class typing implements NativeKeyListener, NativeMouseListener {
                     int smallInput = Integer.parseInt(small);
                     if(bigInput>0&&bigInput<100&&smallInput>0&&smallInput<100) {
                         big_delay=bigInput*250;
-                        small_delay=smallInput*22;
+                        small_delay=smallInput*12;
                         loop=checkBox.isSelected();
                     }
                 } catch (NumberFormatException ex) {}
@@ -150,30 +159,26 @@ public class typing implements NativeKeyListener, NativeMouseListener {
     public void press_keybord(int a) {
         robot.keyPress(a);
         robot.keyRelease(a);
-        robot.delay(small_delay);
     }
-    public void type_keybord(String a){
-        for (char i:a.toCharArray()){
-            int keyCode = KeyEvent.getExtendedKeyCodeForChar(i);
-            if (keyCode == KeyEvent.VK_UNDEFINED) continue;
-            press_keybord(keyCode);
-        }
-    }
-
     public void press_mouse(int a) {
         robot.mousePress(a);
         robot.mouseRelease(a);
-        robot.delay(small_delay);
+    }
+    public void delay(int a){
+        try {
+            Thread.sleep(a);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public void clicker(){
-        robot.delay(small_delay*2);
+        delay(small_delay);
         for (List<Integer> i : FileAnal.order) {
             if (i.get(0)==1){
                 if (i.get(1)==1){
                     robot.mousePress(i.get(2));
                 }else if (i.get(1)==2){
                     robot.mouseRelease(i.get(2));
-                    robot.delay(small_delay);
                 }else if (i.get(1)==3){
                     press_mouse(i.get(2));
                 }else if (i.get(1)==4){
@@ -184,14 +189,16 @@ public class typing implements NativeKeyListener, NativeMouseListener {
                     robot.keyPress(i.get(2));
                 }else if (i.get(1)==2){
                     robot.keyRelease(i.get(2));
-                    robot.delay(small_delay);
                 }else if (i.get(1)==3){
                     press_keybord(i.get(2));
+                }else if (i.get(1)==4){
+                    for (int j:i.subList(2, i.size()))press_keybord(j);
                 }
             }else if (i.get(0)==3){
-                if (i.get(1)==-1) robot.delay(big_delay);
-                else robot.delay(i.get(1));
+                if (i.get(1)==-1) delay(big_delay);
+                else delay(i.get(1));
             }
+            delay(small_delay);
         }
         if (loop&&!togg){
             clicker();
