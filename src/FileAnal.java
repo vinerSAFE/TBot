@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FileAnal {
     public static List<List<Integer>> order = new ArrayList<>();
     public static boolean works=false;
@@ -13,7 +14,7 @@ public class FileAnal {
     }
 
     public boolean isFileValid() {
-        File file = new File("Data Type");
+        File file = new File("commands");
         if (!file.exists() || !file.isFile()) return false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -25,7 +26,7 @@ public class FileAnal {
                 line=line.toLowerCase();
                 String[] parts = line.split("\\.");
                 order.add(new ArrayList<>());
-
+                
                 if (parts[0].equals("mouse")){
                     order.get(cell).add(1);
                 }else if (parts[0].equals("keyb")){
@@ -47,6 +48,13 @@ public class FileAnal {
                     order.get(cell).add(2);
                 }else if (parts[1].equals("press")){
                     order.get(cell).add(3);
+                }else if (parts[1].equals("type")){
+                    order.get(cell).add(4);
+                    for(int i:typing.translate_list(parts[2])){
+                        order.get(cell).add(i);
+                    }
+                    cell++;
+                    continue;
                 }else if (parts[1].equals("move")){
                     order.get(cell).add(4);
                     String[] move =parts[2].split("\\,");
@@ -78,4 +86,7 @@ public class FileAnal {
             return false;
         }
     }
+
+
+    
 }

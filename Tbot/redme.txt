@@ -1,6 +1,16 @@
 printScreen 154
 delete	   127
 
+0	48
+1	49
+2	50
+3	51
+4	52
+5	53
+6	54
+7	55
+8	56
+9	57
 
 A	65
 B	66
@@ -35,6 +45,7 @@ tab			9
 Enter		10
 
 esc			27
+space		32
 arrow_left	37
 arrow_up	38
 arrow_right	39
@@ -59,3 +70,27 @@ F12	123
 
 
 
+========================__commands_syntax__===============================
+
+Mouse.Hold.<Click>
+Mouse.Relese.<Click>
+Mouse.Press.<Click>
+Mouse.Move.<x,y>
+
+KeyB.Hold.<KEY>
+KeyB.Relese.<KEY>
+KeyB.Press.<KEY>
+KeyB.Type.<TEXT>
+
+
+
+example:
+
+	KeyB.Hold.16
+	KeyB.Relese.16
+	KeyB.Press.69
+	KeyB.Type.hi everyone its a nice day isent it
+	Mouse.Move.750,330
+	Mouse.Press.RClick
+	Mouse.Relese.LClick
+	Mouse.Hold.MClick
